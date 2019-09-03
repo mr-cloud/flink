@@ -143,6 +143,9 @@ public class SqlCreateTable extends SqlCreate implements ExtendedSqlNode {
 					}
 				} else if (column instanceof SqlBasicCall) {
 					SqlBasicCall tableColumn = (SqlBasicCall) column;
+					/**
+					 * TOKNOW [1]
+					 */
 					columnName = tableColumn.getOperands()[1].toString();
 				}
 
