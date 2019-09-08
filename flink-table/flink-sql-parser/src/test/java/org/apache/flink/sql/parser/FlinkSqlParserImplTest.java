@@ -389,6 +389,7 @@ public class FlinkSqlParserImplTest extends SqlParserTest {
 		check("CREATE TABLE tbl1 (\n" +
 			"  a ARRAY<ARRAY<bigint>>, \n" +
 			"  b MAP<MAP<int, varchar>, ARRAY<varchar>>,\n" +
+			// TOKNOW row with parameter type
 			"  c ROW<cc0 ARRAY<int>, cc1 float, cc2 varchar>,\n" +
 			"  d MULTISET<ARRAY<int>>,\n" +
 			"  PRIMARY KEY (a, b) \n" +
