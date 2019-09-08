@@ -22,6 +22,7 @@
   # List of additional classes and packages to import.
   # Example. "org.apache.calcite.sql.*", "java.util.List".
   imports: [
+    "org.apache.flink.sql.parser.ddl.SqlCreateFunction",
     "org.apache.flink.sql.parser.ddl.SqlCreateTable",
     "org.apache.flink.sql.parser.ddl.SqlDropTable"
     "org.apache.flink.sql.parser.ddl.SqlCreateTable.TableCreationContext",
@@ -52,6 +53,7 @@
   # List of new keywords. Example: "DATABASES", "TABLES". If the keyword is not a reserved
   # keyword, please also add it to 'nonReservedKeywords' section.
   keywords: [
+    "PROCTIME",
     "COMMENT",
     "PARTITIONED",
     "IF",
@@ -67,6 +69,7 @@
 
   # List of keywords from "keywords" section that are not reserved.
   nonReservedKeywords: [
+    "PROCTIME",
     "A"
     "ABSENT"
     "ABSOLUTE"
@@ -428,6 +431,7 @@
   # List of methods for parsing extensions to "CREATE [OR REPLACE]" calls.
   # Each must accept arguments "(SqlParserPos pos, boolean replace)".
   createStatementParserMethods: [
+    "SqlCreateFunction"
     "SqlCreateTable",
     "SqlCreateView"
   ]
