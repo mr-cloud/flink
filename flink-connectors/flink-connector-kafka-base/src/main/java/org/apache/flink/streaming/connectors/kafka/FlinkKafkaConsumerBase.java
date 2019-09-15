@@ -876,6 +876,7 @@ public abstract class FlinkKafkaConsumerBase<T> extends RichParallelSourceFuncti
 					"Topic / partition discovery cannot be enabled if the job is restored from a savepoint from Flink 1.2.x.");
 			}
 
+			// TOKNOW why not even-split enough?
 			// populate actual holder for restored state
 			for (Tuple2<KafkaTopicPartition, Long> kafkaOffset : unionOffsetStates.get()) {
 				restoredState.put(kafkaOffset.f0, kafkaOffset.f1);
