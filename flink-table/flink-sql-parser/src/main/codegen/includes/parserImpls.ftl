@@ -155,6 +155,28 @@ SqlNodeList TableProperties():
     {  return new SqlNodeList(proList, span.end(this)); }
 }
 
+        SqlCreate SqlCreateFunction(Span s, boolean replace) :
+        {
+        final SqlParserPos startPos = s.pos();
+        SqlNode functionName = null;
+        String className = null;
+        SqlParserPos pos = startPos;
+
+        SqlNode sample = null;
+        }
+        {
+            <FUNCTION>
+
+                functionName = CompoundIdentifier()
+
+                <AS> sample = StringLiteral()
+
+                    {
+                    className = ((NlsString) SqlLiteral.value(sample)).getValue();
+                    return new SqlCreateFunction(startPos.plus(getPos()), functionName, className);
+                    }
+                    }
+
 SqlCreate SqlCreateTable(Span s, boolean replace) :
 {
     final SqlParserPos startPos = s.pos();
