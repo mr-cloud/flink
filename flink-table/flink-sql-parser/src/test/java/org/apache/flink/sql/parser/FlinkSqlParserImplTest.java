@@ -74,10 +74,10 @@ public class FlinkSqlParserImplTest extends SqlParserTest {
 
 	@Test
 	public void testCreateFunction() throws SqlParseException {
-//		SqlNode sqlNode = getSqlParser("CREATE FUNCTION my_func AS 'uni.akilis.flink.sql.udf.MyFunc'").parseStmt();
-//		System.out.println(sqlNode.toSqlString(null).getSql());
-		check("CREATE FUNCTION my_func AS 'uni.akilis.flink.sql.udf.MyFunc'",
-				"CREATE FUNCTION `MY_FUNC` AS 'uni.akilis.flink.sql.udf.MyFunc'");
+		SqlNode sqlNode = getSqlParser("CREATE FUNCTION my_func AS 'uni.akilis.flink.sql.udf.MyFunc' using jar 'file:///lab/hello.jar'").parseStmt();
+		System.out.println(sqlNode.toSqlString(null).getSql());
+		check("CREATE FUNCTION my_func AS 'uni.akilis.flink.sql.udf.MyFunc' using jar 'file:///lab/hello.jar'",
+				"CREATE FUNCTION `MY_FUNC` AS 'uni.akilis.flink.sql.udf.MyFunc' USING JAR 'file:///lab/hello.jar'");
 	}
 	@Test
 	public void testCreateTable() {

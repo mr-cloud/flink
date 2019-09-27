@@ -53,6 +53,7 @@
   # List of new keywords. Example: "DATABASES", "TABLES". If the keyword is not a reserved
   # keyword, please also add it to 'nonReservedKeywords' section.
   keywords: [
+    "JAR",
     "PROCTIME",
     "COMMENT",
     "PARTITIONED",
@@ -374,6 +375,7 @@
     "ZONE",
 
     # not in core, added in Flink
+    "JAR",
     "PARTITIONED",
     "IF",
     "ASCENDING",

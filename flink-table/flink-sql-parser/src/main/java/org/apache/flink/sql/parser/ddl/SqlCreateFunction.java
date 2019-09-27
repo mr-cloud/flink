@@ -35,16 +35,19 @@ public class SqlCreateFunction extends SqlCreate implements ExtendedSqlNode {
 
 	private String className;
 
+	private String jarPath;
+
 	/**
 	 *
 	 * @param pos
 	 * @param functionName
 	 * @param className FIXME use SqlLiteral data type
 	 */
-	public SqlCreateFunction(SqlParserPos pos, SqlNode functionName, String className) {
+	public SqlCreateFunction(SqlParserPos pos, SqlNode functionName, String className, String jarPath) {
 		super(OPERATOR, pos, false, false);
 		this.functionName = functionName;
 		this.className = className;
+		this.jarPath = jarPath;
 	}
 
 	@Override
@@ -74,6 +77,14 @@ public class SqlCreateFunction extends SqlCreate implements ExtendedSqlNode {
 		this.className = className;
 	}
 
+	public String getJarPath() {
+		return jarPath;
+	}
+
+	public void setJarPath(String jarPath) {
+		this.jarPath = jarPath;
+	}
+
 	public void unparse(
 		SqlWriter writer,
 		int leftPrec,
@@ -83,6 +94,10 @@ public class SqlCreateFunction extends SqlCreate implements ExtendedSqlNode {
 		functionName.unparse(writer, leftPrec, rightPrec);
 		writer.keyword("AS");
 		writer.print("'" + className + "'");
+		if (jarPath != null) {
+			writer.keyword(" USING JAR");
+			writer.print("'" + jarPath + "'");
+		}
 	}
 
 	public void validate() {

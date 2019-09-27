@@ -155,27 +155,33 @@ SqlNodeList TableProperties():
     {  return new SqlNodeList(proList, span.end(this)); }
 }
 
-        SqlCreate SqlCreateFunction(Span s, boolean replace) :
-        {
-        final SqlParserPos startPos = s.pos();
-        SqlNode functionName = null;
-        String className = null;
-        SqlParserPos pos = startPos;
+SqlCreate SqlCreateFunction(Span s, boolean replace) :
+{
+final SqlParserPos startPos = s.pos();
+SqlNode functionName = null;
+String className = null;
+String jarPath = null;
+SqlParserPos pos = startPos;
 
-        SqlNode sample = null;
-        }
-        {
-            <FUNCTION>
+SqlNode sample = null;
+}
+{
+    <FUNCTION>
 
-                functionName = CompoundIdentifier()
+        functionName = CompoundIdentifier()
 
-                <AS> sample = StringLiteral()
-
-                    {
-                    className = ((NlsString) SqlLiteral.value(sample)).getValue();
-                    return new SqlCreateFunction(startPos.plus(getPos()), functionName, className);
-                    }
-                    }
+        <AS> <QUOTED_STRING>
+            {
+                className = SqlParserUtil.parseString(token.image);
+            }
+            [ <USING> <JAR> <QUOTED_STRING>
+            {
+                        jarPath = SqlParserUtil.parseString(token.image);
+            }]
+            {
+            return new SqlCreateFunction(startPos.plus(getPos()), functionName, className, jarPath);
+            }
+}
 
 SqlCreate SqlCreateTable(Span s, boolean replace) :
 {
