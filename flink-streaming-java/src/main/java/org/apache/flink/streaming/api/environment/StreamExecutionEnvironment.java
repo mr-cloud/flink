@@ -1855,7 +1855,7 @@ public abstract class StreamExecutionEnvironment {
 		this.cacheFile.add(new Tuple2<>(name, new DistributedCache.DistributedCacheEntry(filePath, executable)));
 	}
 
-	public void registerLocalUserJar(URI jarPath) {
+	public void registerUserJarFile(URI jarPath) {
 		Path path = new Path(jarPath);
 		this.userJars.add(path);
 	}
