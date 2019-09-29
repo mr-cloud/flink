@@ -30,6 +30,7 @@ import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.typeutils.MissingTypeInfo;
+import org.apache.flink.core.fs.Path;
 import org.apache.flink.optimizer.plan.StreamingPlan;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.ScheduleMode;
@@ -114,6 +115,7 @@ public class StreamGraph extends StreamingPlan {
 	protected Map<Integer, Long> vertexIDtoLoopTimeout;
 	private StateBackend stateBackend;
 	private Set<Tuple2<StreamNode, StreamNode>> iterationSourceSinkPairs;
+	private List<Path> userJars;
 
 	public StreamGraph(ExecutionConfig executionConfig, CheckpointConfig checkpointConfig) {
 		this.executionConfig = checkNotNull(executionConfig);
@@ -760,5 +762,13 @@ public class StreamGraph extends StreamingPlan {
 				pw.close();
 			}
 		}
+	}
+
+	public List<Path> getUserJars() {
+		return userJars;
+	}
+
+	public void setUserJars(List<Path> userJars) {
+		this.userJars = userJars;
 	}
 }

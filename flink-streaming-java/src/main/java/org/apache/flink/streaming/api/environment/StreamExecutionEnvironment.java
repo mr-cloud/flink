@@ -82,6 +82,7 @@ import com.esotericsoftware.kryo.Serializer;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -146,6 +147,7 @@ public abstract class StreamExecutionEnvironment {
 
 	protected final List<Tuple2<String, DistributedCache.DistributedCacheEntry>> cacheFile = new ArrayList<>();
 
+	protected final List<Path> userJars = new ArrayList<>();
 
 	// --------------------------------------------------------------------------------------------
 	// Constructor and Properties
@@ -1549,7 +1551,8 @@ public abstract class StreamExecutionEnvironment {
 			.setChaining(isChainingEnabled)
 			.setUserArtifacts(cacheFile)
 			.setTimeCharacteristic(timeCharacteristic)
-			.setDefaultBufferTimeout(bufferTimeout);
+			.setDefaultBufferTimeout(bufferTimeout)
+			.setUserJar(userJars);
 	}
 
 	/**
@@ -1851,4 +1854,11 @@ public abstract class StreamExecutionEnvironment {
 	public void registerCachedFile(String filePath, String name, boolean executable) {
 		this.cacheFile.add(new Tuple2<>(name, new DistributedCache.DistributedCacheEntry(filePath, executable)));
 	}
+
+	public void registerLocalUserJar(URI jarPath) {
+		Path path = new Path(jarPath);
+		this.userJars.add(path);
+	}
+
+
 }

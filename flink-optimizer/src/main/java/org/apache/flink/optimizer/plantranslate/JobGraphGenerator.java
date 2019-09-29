@@ -176,7 +176,13 @@ public class JobGraphGenerator implements Visitor<PlanNode> {
 				ConfigConstants.DEFAULT_USE_LARGE_RECORD_HANDLER);
 	}
 
-	/**
+	public static void addUserJars(List<Path> userJars, JobGraph jobGraph) {
+		for (Path jar: userJars) {
+			jobGraph.addJar(jar);
+		}
+	}
+
+    /**
 	 * Translates a {@link org.apache.flink.optimizer.plan.OptimizedPlan} into a
 	 * {@link org.apache.flink.runtime.jobgraph.JobGraph}.
 	 * 
